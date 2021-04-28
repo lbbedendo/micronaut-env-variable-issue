@@ -28,3 +28,5 @@ outbox.event.test
 ${EVENTS_SUBSCRIPTION_SECRET}
 16:23:03.487 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 771ms. Server Running: http://localhost:8080
 ```
+
+PS: The variables are printed in the `Init` class.
