@@ -1,7 +1,7 @@
 ## Problem
 
 This application (using Micronaut 2.4.4) is not resolving the `EVENTS_SUBSCRIPTION_SECRET` environment variable. The placeholder, instead, `${EVENTS_SUBSCRIPTION_SECRET}` is kept inaltered.
-The other two environment variables (HERMES_MANAGEMENT_URL and EVENTS_TOPIC_NAME) are resolved as expected.
+The other two environment variables (`${HERMES_MANAGEMENT_URL}` and `${EVENTS_TOPIC_NAME}`) are resolved as expected.
 
 ## Reproducing the issue
 
