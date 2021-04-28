@@ -5,9 +5,9 @@ public interface HermesManagementSettings {
 
     String TOPIC = PREFIX + ".topics";
 
-    String SUBSCRIPTION = TOPIC + ".subscription";
+    String SUBSCRIPTION = "subscription";
 
-    String SUBSCRIPTION_POLICY = SUBSCRIPTION + ".subscriptionPolicy";
+    String SUBSCRIPTION_POLICY = "subscriptionPolicy";
 
-    String OWNER = SUBSCRIPTION + ".owner";
+    String OWNER = "owner";
 }

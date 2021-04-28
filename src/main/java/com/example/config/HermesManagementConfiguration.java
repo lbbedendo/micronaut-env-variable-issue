@@ -1,16 +1,14 @@
 package com.example.config;
 
 import io.micronaut.context.annotation.ConfigurationProperties;
-import io.micronaut.core.util.Toggleable;
 
+import javax.inject.Inject;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @ConfigurationProperties(HermesManagementSettings.PREFIX)
-public class HermesManagementConfiguration implements Toggleable {
+public class HermesManagementConfiguration {
 
-    private boolean enabled;
+    private Boolean enabled;
     private String url;
     private List<TopicConfiguration> topics;
 
@@ -18,16 +16,16 @@ public class HermesManagementConfiguration implements Toggleable {
         return topics;
     }
 
+    @Inject
     public void setTopics(List<TopicConfiguration> topics) {
         this.topics = topics;
     }
 
-    @Override
-    public boolean isEnabled() {
+    public Boolean isEnabled() {
         return enabled;
     }
 
-    public void setEnabled(boolean enabled) {
+    public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
 
