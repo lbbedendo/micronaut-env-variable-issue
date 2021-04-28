@@ -1,0 +1,24 @@
+micronaut:
+  application:
+    name: demo
+
+endpoints:
+  health:
+    enabled: true
+  env:
+    enabled: true
+    sensitive: false
+
+hermes:
+  management:
+    enabled: true
+    url: ${HERMES_MANAGEMENT_URL}
+    topics:
+      - name: ${EVENTS_TOPIC_NAME}
+        subscription:
+          name: test-app
+          endpoint: http://my-endpoint
+          secret: ${EVENTS_SUBSCRIPTION_SECRET}
+          owner:
+            source: Plaintext
+            id: app-owner

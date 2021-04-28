@@ -1,0 +1,3 @@
+export HERMES_MANAGEMENT_URL="http://localhost:8090"
+export EVENTS_TOPIC_NAME="outbox.event.test"
+export EVENTS_SUBSCRIPTION_SECRET="my-secret-123"
