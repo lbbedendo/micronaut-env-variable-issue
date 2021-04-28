@@ -8,7 +8,6 @@ import javax.validation.constraints.NotNull;
 
 @ConfigurationProperties(HermesManagementSettings.SUBSCRIPTION)
 public class SubscriptionConfiguration {
-    public static final String SUBSCRIPTION_SECRET_HEADER = "subscription-secret";
     private static final OwnerConfiguration DEFAULT_OWNER_CONFIGURATION = new OwnerConfiguration("Plaintext", "platos");
 
     @NotEmpty
