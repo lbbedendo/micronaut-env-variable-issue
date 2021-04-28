@@ -30,3 +30,11 @@ ${EVENTS_SUBSCRIPTION_SECRET}
 ```
 
 PS: The variables are printed in the `Init` class.
+
+## Fixing the problem (Thanks to @jameskleeh):
+
+1. Use `@EachProperty(value = HermesManagementSettings.TOPIC, list = true)` instead of `@ConfigurationProperties`. The latter is not designed to bind from a list.
+
+2. Change HermesManagementConfiguration to inject the List<TopicConfiguration> topics via the constructor or annotate the setter method.
+
+3. Change SubscriptionConfiguration to be an inner class of TopicConfiguration since you can’t reference the property name via the annotation because it's an array.
