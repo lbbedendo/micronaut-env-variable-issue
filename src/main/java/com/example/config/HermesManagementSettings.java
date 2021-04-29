@@ -7,7 +7,7 @@ public interface HermesManagementSettings {
 
     String SUBSCRIPTION = "subscription";
 
-    String SUBSCRIPTION_POLICY = "subscriptionPolicy";
+    String POLICY = "policy";
 
     String OWNER = "owner";
 }

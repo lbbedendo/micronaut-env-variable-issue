@@ -20,6 +20,7 @@ public class Init implements ApplicationEventListener<ServiceReadyEvent> {
         hermesManagementConfiguration.getTopics().forEach(topicConfiguration -> {
             System.out.println(topicConfiguration.getName());
             System.out.println(topicConfiguration.getSubscription().getSecret());
+            System.out.println(topicConfiguration.getSubscription().getPolicy().toString());
         });
     }
 }

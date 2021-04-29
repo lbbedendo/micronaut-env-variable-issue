@@ -102,6 +102,8 @@ public class TopicConfiguration {
         private String name;
         private String description;
         private String secret;
+        private Policy policy;
+        private Owner owner;
 
         public String getEndpoint() {
             return endpoint;
@@ -133,6 +135,146 @@ public class TopicConfiguration {
 
         public void setSecret(String secret) {
             this.secret = secret;
+        }
+
+        public Policy getPolicy() {
+            return policy;
+        }
+
+        @Inject
+        public void setPolicy(Policy policy) {
+            this.policy = policy;
+        }
+
+        public Owner getOwner() {
+            return owner;
+        }
+
+        public void setOwner(Owner owner) {
+            this.owner = owner;
+        }
+
+        @ConfigurationProperties(HermesManagementSettings.POLICY)
+        public static class Policy {
+
+            private Integer rate;
+            private Integer messageTtl;
+            private Integer messageBackoff;
+            private Boolean retryClientErrors;
+            private Integer requestTimeout;
+            private Integer socketTimeout;
+            private Integer inflightSize;
+            private Double backoffMultiplier;
+            private Integer backoffMaxIntervalInSec;
+
+            public Integer getRate() {
+                return rate;
+            }
+
+            public void setRate(Integer rate) {
+                this.rate = rate;
+            }
+
+            public Integer getMessageTtl() {
+                return messageTtl;
+            }
+
+            public void setMessageTtl(Integer messageTtl) {
+                this.messageTtl = messageTtl;
+            }
+
+            public Integer getMessageBackoff() {
+                return messageBackoff;
+            }
+
+            public void setMessageBackoff(Integer messageBackoff) {
+                this.messageBackoff = messageBackoff;
+            }
+
+            public Boolean getRetryClientErrors() {
+                return retryClientErrors;
+            }
+
+            public void setRetryClientErrors(Boolean retryClientErrors) {
+                this.retryClientErrors = retryClientErrors;
+            }
+
+            public Integer getRequestTimeout() {
+                return requestTimeout;
+            }
+
+            public void setRequestTimeout(Integer requestTimeout) {
+                this.requestTimeout = requestTimeout;
+            }
+
+            public Integer getSocketTimeout() {
+                return socketTimeout;
+            }
+
+            public void setSocketTimeout(Integer socketTimeout) {
+                this.socketTimeout = socketTimeout;
+            }
+
+            public Integer getInflightSize() {
+                return inflightSize;
+            }
+
+            public void setInflightSize(Integer inflightSize) {
+                this.inflightSize = inflightSize;
+            }
+
+            public Double getBackoffMultiplier() {
+                return backoffMultiplier;
+            }
+
+            public void setBackoffMultiplier(Double backoffMultiplier) {
+                this.backoffMultiplier = backoffMultiplier;
+            }
+
+            public Integer getBackoffMaxIntervalInSec() {
+                return backoffMaxIntervalInSec;
+            }
+
+            public void setBackoffMaxIntervalInSec(Integer backoffMaxIntervalInSec) {
+                this.backoffMaxIntervalInSec = backoffMaxIntervalInSec;
+            }
+
+            @Override
+            public String toString() {
+                return "Policy{" +
+                        "rate=" + rate +
+                        ", messageTtl=" + messageTtl +
+                        ", messageBackoff=" + messageBackoff +
+                        ", retryClientErrors=" + retryClientErrors +
+                        ", requestTimeout=" + requestTimeout +
+                        ", socketTimeout=" + socketTimeout +
+                        ", inflightSize=" + inflightSize +
+                        ", backoffMultiplier=" + backoffMultiplier +
+                        ", backoffMaxIntervalInSec=" + backoffMaxIntervalInSec +
+                        '}';
+            }
+        }
+
+        @ConfigurationProperties(HermesManagementSettings.OWNER)
+        public static class Owner {
+            private String source;
+            private String id;
+
+            public String getSource() {
+                return source;
+            }
+
+            public void setSource(String source) {
+                this.source = source;
+            }
+
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
+            }
         }
     }
 }

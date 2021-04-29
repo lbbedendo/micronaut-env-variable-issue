@@ -19,6 +19,16 @@ hermes:
           name: test-app
           endpoint: http://my-endpoint
           secret: ${EVENTS_SUBSCRIPTION_SECRET}
+          policy:
+            rate: 400
+            message-ttl: 3600
+            message-backoff: 1000
+            retry-client-errors: false
+            request-timeout: 1000
+            socket-timeout: 500
+            inflight-size: 100
+            backoff-multiplier: 1
+            backoff-max-interval-in-sec: 600
           owner:
             source: Plaintext
             id: app-owner
