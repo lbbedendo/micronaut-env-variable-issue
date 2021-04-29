@@ -18,11 +18,11 @@ public class Init implements ApplicationEventListener<ServiceReadyEvent> {
     public void onApplicationEvent(ServiceReadyEvent event) {
         System.out.println(hermesManagementConfiguration.getUrl());
         hermesManagementConfiguration.getTopics().forEach(topicConfiguration -> {
-            System.out.println(topicConfiguration.getName());
-            System.out.println(topicConfiguration.getOwner());
-            System.out.println(topicConfiguration.getSubscription().getSecret());
-            System.out.println(topicConfiguration.getSubscription().getPolicy());
-            System.out.println(topicConfiguration.getSubscription().getOwner());
+            System.out.println("Topic name: " + topicConfiguration.getName());
+            System.out.println("Topic owner: " + topicConfiguration.getOwner());
+            System.out.println("Subscription secret: " + topicConfiguration.getSubscription().getSecret());
+            System.out.println("Subscription policy: " + topicConfiguration.getSubscription().getPolicy());
+            System.out.println("Subscription owner: " + topicConfiguration.getSubscription().getOwner());
         });
     }
 }

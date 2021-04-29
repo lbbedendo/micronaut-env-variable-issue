@@ -3,8 +3,6 @@ package com.example.config;
 import io.micronaut.context.annotation.ConfigurationProperties;
 import io.micronaut.context.annotation.EachProperty;
 
-import javax.inject.Inject;
-
 @EachProperty(value = HermesManagementSettings.TOPIC, list = true)
 public class TopicConfiguration {
 
@@ -21,7 +19,7 @@ public class TopicConfiguration {
     private Integer retentionTime = DEFAULT_RETENTION_TIME_1_DAY;
     private Boolean trackingEnabled;
     private SubscriptionConfiguration subscription;
-    private Owner owner;
+    private TopicOwner owner;
 
     public String getName() {
         return name;
@@ -95,11 +93,11 @@ public class TopicConfiguration {
         this.subscription = subscription;
     }
 
-    public Owner getOwner() {
+    public TopicOwner getOwner() {
         return owner;
     }
 
-    public void setOwner(Owner owner) {
+    public void setOwner(TopicOwner owner) {
         this.owner = owner;
     }
 
@@ -111,7 +109,7 @@ public class TopicConfiguration {
         private String description;
         private String secret;
         private Policy policy;
-        private TopicConfiguration.Owner owner;
+        private SubscriptionOwner owner;
 
         public String getEndpoint() {
             return endpoint;
@@ -149,17 +147,15 @@ public class TopicConfiguration {
             return policy;
         }
 
-        @Inject
         public void setPolicy(Policy policy) {
             this.policy = policy;
         }
 
-        public TopicConfiguration.Owner getOwner() {
+        public SubscriptionOwner getOwner() {
             return owner;
         }
 
-        @Inject
-        public void setOwner(TopicConfiguration.Owner owner) {
+        public void setOwner(SubscriptionOwner owner) {
             this.owner = owner;
         }
 
@@ -264,32 +260,25 @@ public class TopicConfiguration {
             }
         }
 
+        @ConfigurationProperties(HermesManagementSettings.OWNER)
+        public static class SubscriptionOwner extends Owner {
+
+            @Override
+            public String toString() {
+                return "TopicOwner{" +
+                        "source='" + source + '\'' +
+                        ", id='" + id + '\'' +
+                        '}';
+            }
+        }
     }
 
     @ConfigurationProperties(HermesManagementSettings.OWNER)
-    public static class Owner {
-        private String source;
-        private String id;
-
-        public String getSource() {
-            return source;
-        }
-
-        public void setSource(String source) {
-            this.source = source;
-        }
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
+    public static class TopicOwner extends Owner {
 
         @Override
         public String toString() {
-            return "Owner{" +
+            return "TopicOwner{" +
                     "source='" + source + '\'' +
                     ", id='" + id + '\'' +
                     '}';

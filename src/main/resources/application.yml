@@ -16,8 +16,8 @@ hermes:
     topics:
       - name: ${EVENTS_TOPIC_NAME}
         owner:
-          source: Plaintext
-          id: app-owner
+          source: source-1
+          id: id-1
         subscription:
           name: test-app
           endpoint: http://my-endpoint
@@ -33,5 +33,5 @@ hermes:
             backoff-multiplier: 1
             backoff-max-interval-in-sec: 600
           owner:
-            source: Plaintext
-            id: app-owner
+            source: source-2
+            id: id-2
