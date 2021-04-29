@@ -1,9 +1,47 @@
-## Problem
+## Description
 
-This application (using Micronaut 2.4.4) is not resolving the `EVENTS_SUBSCRIPTION_SECRET` environment variable. The placeholder, instead, `${EVENTS_SUBSCRIPTION_SECRET}` is kept inaltered.
-The other two environment variables (`${HERMES_MANAGEMENT_URL}` and `${EVENTS_TOPIC_NAME}`) are resolved as expected.
+This project uses Micronaut's `@EachProperty` annotation to bind from a list defined in `application.yml`. I decided to create this example after trying to use `@ConfigurationProperties` instead, which is not designed to bind from a list.
 
-## Reproducing the issue
+## Configuration
+
+```yaml
+hermes:
+  management:
+    enabled: true
+    url: ${HERMES_MANAGEMENT_URL}
+    topics:
+      - name: ${EVENTS_TOPIC_NAME}
+        owner:
+          source: source-1
+          id: id-1
+        subscription:
+          name: test-app
+          endpoint: http://my-endpoint
+          secret: ${EVENTS_SUBSCRIPTION_SECRET}
+          policy:
+            rate: 400
+            message-ttl: 3600
+            message-backoff: 1000
+            retry-client-errors: false
+            request-timeout: 1000
+            socket-timeout: 500
+            inflight-size: 100
+            backoff-multiplier: 1
+            backoff-max-interval-in-sec: 600
+          owner:
+            source: source-2
+            id: id-2
+```
+
+You can notice that the object "owner" appears in different places (both as a property of "topics" and as a property of "subscription"). 
+In order to avoid creating an `Owner` class twice as an inner class of `TopicConfiguration` and of `SubscriptionConfiguration` I created an abstract class `Owner` and used it as an parent class of `TopicOwner` and `SubscriptionOwner` (which are both annotated with `@ConfigurationProperties`).
+
+## Original problem
+
+This application (using Micronaut 2.4.4) was using `@ConfigurationProperties` to bind from a list and wasn't resolving the `EVENTS_SUBSCRIPTION_SECRET` environment variable. The placeholder, instead, `${EVENTS_SUBSCRIPTION_SECRET}` is kept inaltered.
+The other two environment variables (`${HERMES_MANAGEMENT_URL}` and `${EVENTS_TOPIC_NAME}`) were being resolved as expected.
+
+## Running the application
 
 1. Export the environment variables present in "env" file:
 ```
@@ -14,6 +52,7 @@ source env
 ```
 ./gradlew run
 ```
+
 3. Expected result:
 ```
  __  __ _                                  _   
@@ -24,17 +63,9 @@ source env
   Micronaut (v2.4.4)
 
 http://localhost:8090
-outbox.event.test
-${EVENTS_SUBSCRIPTION_SECRET}
-16:23:03.487 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 771ms. Server Running: http://localhost:8080
+Topic name: outbox.event.test
+Topic owner: TopicOwner{source='source-1', id='id-1'}
+Subscription secret: my-secret-123
+Subscription policy: Policy{rate=400, messageTtl=3600, messageBackoff=1000, retryClientErrors=false, requestTimeout=1000, socketTimeout=500, inflightSize=100, backoffMultiplier=1.0, backoffMaxIntervalInSec=600}
+Subscription owner: TopicOwner{source='source-2', id='id-2'}
 ```
-
-PS: The variables are printed in the `Init` class.
-
-## Fixing the problem (Thanks to @jameskleeh):
-
-1. Use `@EachProperty(value = HermesManagementSettings.TOPIC, list = true)` instead of `@ConfigurationProperties`. The latter is not designed to bind from a list.
-
-2. Change HermesManagementConfiguration to inject the List<TopicConfiguration> topics via the constructor or annotate the setter method.
-
-3. Change SubscriptionConfiguration to be an inner class of TopicConfiguration since you can’t reference the property name via the annotation because it's an array.
