@@ -38,7 +38,7 @@ In order to avoid creating an `Owner` class twice as an inner class of `TopicCon
 
 ## Original problem
 
-This application (using Micronaut 2.4.4) was using `@ConfigurationProperties` to bind from a list and wasn't resolving the `EVENTS_SUBSCRIPTION_SECRET` environment variable. The placeholder, instead, `${EVENTS_SUBSCRIPTION_SECRET}` is kept inaltered.
+This application (using Micronaut 2.4.4) was using `@ConfigurationProperties` to bind from a list and wasn't resolving the `EVENTS_SUBSCRIPTION_SECRET` environment variable. The placeholder, instead, `${EVENTS_SUBSCRIPTION_SECRET}` was kept inaltered.
 The other two environment variables (`${HERMES_MANAGEMENT_URL}` and `${EVENTS_TOPIC_NAME}`) were being resolved as expected.
 
 ## Running the application
