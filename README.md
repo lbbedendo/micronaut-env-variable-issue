@@ -1,6 +1,7 @@
 ## Description
 
-This project uses Micronaut's `@EachProperty` annotation to bind from a list defined in `application.yml`. I decided to create this example after trying to use `@ConfigurationProperties` instead, which is not designed to bind from a list.
+This project uses Micronaut's `@EachProperty` annotation to bind from a list defined in `application.yml`. 
+I decided to create this example after I tried (and failed) to use `@ConfigurationProperties` instead, which is not designed to bind from a list.
 
 ## Configuration
 
