@@ -265,7 +265,7 @@ public class TopicConfiguration {
 
             @Override
             public String toString() {
-                return "TopicOwner{" +
+                return "SubscriptionOwner{" +
                         "source='" + source + '\'' +
                         ", id='" + id + '\'' +
                         '}';
