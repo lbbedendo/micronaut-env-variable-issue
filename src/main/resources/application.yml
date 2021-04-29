@@ -15,6 +15,9 @@ hermes:
     url: ${HERMES_MANAGEMENT_URL}
     topics:
       - name: ${EVENTS_TOPIC_NAME}
+        owner:
+          source: Plaintext
+          id: app-owner
         subscription:
           name: test-app
           endpoint: http://my-endpoint

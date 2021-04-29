@@ -21,6 +21,7 @@ public class TopicConfiguration {
     private Integer retentionTime = DEFAULT_RETENTION_TIME_1_DAY;
     private Boolean trackingEnabled;
     private SubscriptionConfiguration subscription;
+    private Owner owner;
 
     public String getName() {
         return name;
@@ -90,9 +91,16 @@ public class TopicConfiguration {
         return subscription;
     }
 
-    @Inject
     public void setSubscription(SubscriptionConfiguration subscription) {
         this.subscription = subscription;
+    }
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
     }
 
     @ConfigurationProperties(HermesManagementSettings.SUBSCRIPTION)
@@ -103,7 +111,7 @@ public class TopicConfiguration {
         private String description;
         private String secret;
         private Policy policy;
-        private Owner owner;
+        private TopicConfiguration.Owner owner;
 
         public String getEndpoint() {
             return endpoint;
@@ -146,11 +154,12 @@ public class TopicConfiguration {
             this.policy = policy;
         }
 
-        public Owner getOwner() {
+        public TopicConfiguration.Owner getOwner() {
             return owner;
         }
 
-        public void setOwner(Owner owner) {
+        @Inject
+        public void setOwner(TopicConfiguration.Owner owner) {
             this.owner = owner;
         }
 
@@ -255,26 +264,35 @@ public class TopicConfiguration {
             }
         }
 
-        @ConfigurationProperties(HermesManagementSettings.OWNER)
-        public static class Owner {
-            private String source;
-            private String id;
+    }
 
-            public String getSource() {
-                return source;
-            }
+    @ConfigurationProperties(HermesManagementSettings.OWNER)
+    public static class Owner {
+        private String source;
+        private String id;
 
-            public void setSource(String source) {
-                this.source = source;
-            }
+        public String getSource() {
+            return source;
+        }
 
-            public String getId() {
-                return id;
-            }
+        public void setSource(String source) {
+            this.source = source;
+        }
 
-            public void setId(String id) {
-                this.id = id;
-            }
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        @Override
+        public String toString() {
+            return "Owner{" +
+                    "source='" + source + '\'' +
+                    ", id='" + id + '\'' +
+                    '}';
         }
     }
 }
